@@ -1,22 +1,32 @@
-import { BsCarFrontFill, BsFillPersonFill } from "react-icons/bs";
-import { MdTaxiAlert, MdOutput } from "react-icons/md";
-import { MenuItem } from "@/components/MenuItem";
+import { Menu } from "@/components/Menu";
+import { Card } from "@/components/Card";
+import { Title } from "@/components/Title";
 
-export default function Home() {
+import { Cars } from "@/@types/Cars";
+
+async function getCars() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/cars`, {
+    next: { revalidate: 60 * 60 * 24 }, //24 hours
+  });
+
+  const cars: Cars[] = await res.json();
+
+  return { cars };
+}
+
+export default async function Home() {
+  const { cars } = await getCars();
+
   return (
-    <main className="w-full h-screen grid grid-cols-3 sm:grid-cols-container gap-2 sm:gap-10">
-      <nav className="p-2 bg-blue-500 col-span-1">
-        <h2 className="text-xl sm:text-3xl font-semibold mb-4 sm:mb-6">LK Rentals</h2>
-        <ul className="flex flex-col gap-4">
-          <MenuItem icon={<BsFillPersonFill className="w-5 h-5" />} text="Minha Conta" />
-          <MenuItem icon={<BsCarFrontFill className="w-5 h-5" />} text="Alugar Veículo" />
-          <MenuItem icon={<MdTaxiAlert className="w-5 h-5" />} text="Carros Alugados" />
-          <MenuItem icon={<MdOutput className="w-5 h-5" />} text="Sair" />
-        </ul>
-      </nav>
-      <section className="py-2 col-span-2 sm:col-span-1">
-        <h2>Conteudo do cliente aparece aqui</h2>
-      </section>
-    </main>
+    <>
+      <Menu>
+        <Title text="Carros Disponíveis" />
+        <section className="max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {cars.map((car) => {
+            return <Card key={car.id} data={car} />;
+          })}
+        </section>
+      </Menu>
+    </>
   );
 }
