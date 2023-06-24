@@ -1,6 +1,7 @@
 import { BsCarFrontFill, BsFillPersonFill } from "react-icons/bs";
 import { MdTaxiAlert, MdOutput } from "react-icons/md";
 import { MenuItem } from "@/components/Menu/MenuItem";
+import { ButtonLogout } from "./ButtonLogout";
 
 export function Menu({ children }: { children: React.ReactNode }) {
   return (
@@ -19,7 +20,7 @@ export function Menu({ children }: { children: React.ReactNode }) {
             url="/home"
           />
           <MenuItem icon={<MdTaxiAlert className="w-5 h-5" />} text="Carros Alugados" url="/home" />
-          <MenuItem icon={<MdOutput className="w-5 h-5" />} text="Sair" url="/" />
+          <ButtonLogout icon={<MdOutput className="w-5 h-5" />} text="Sair" />
         </ul>
       </nav>
       <section className="py-2 col-span-2 sm:col-span-1">{children}</section>
