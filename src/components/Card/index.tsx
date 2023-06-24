@@ -14,6 +14,7 @@ export function Card({ data }: CardProps) {
         {data.image.map((img) => {
           return (
             <Image
+              key={img.id}
               className="rounded-md hover:scale-105 hover:duration-200"
               width={380}
               height={350}

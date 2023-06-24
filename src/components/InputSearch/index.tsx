@@ -1,39 +1,34 @@
 "use client";
 import { useState } from "react";
 
+import { Card } from "../Card";
 import { Cars } from "@/@types/Cars";
 
-export function InputSearch() {
-  //colocar o car e o card dos carros dentro do input aqui para poder manipular a pesquisa
+export function InputSearch({ cars }: { cars: Cars[] }) {
   const [search, setSearch] = useState<string>("");
 
-  async function getCarFiltered(search: string) {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/car?name=${search}&brand&license_plate`
-    );
-
-    const cars: Cars = await res.json();
-
-    if (!res.ok) {
-      return alert("Carro não encontrado");
-    }
-
-    return console.log(cars);
-  }
-
   return (
-    <input
-      value={search}
-      onChange={({ target }) => setSearch(target.value)}
-      className="mb-10 text-black px-2 outline-none lowercase"
-      type="text"
-      placeholder="Procurar"
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          getCarFiltered(search);
-        }
-        return;
-      }}
-    />
+    <>
+      <input
+        value={search}
+        onChange={({ target }) => setSearch(target.value)}
+        className="mb-8 text-black px-2 outline-none rounded h-8"
+        type="text"
+        placeholder="Procurar"
+      />
+      <section className="max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {cars
+          .filter((car) => {
+            if (search.length === 0) {
+              return car;
+            } else if (car.name.toLowerCase().includes(search.toLowerCase())) {
+              return car;
+            }
+          })
+          .map((car) => {
+            return <Card key={car.id} data={car} />;
+          })}
+      </section>
+    </>
   );
 }

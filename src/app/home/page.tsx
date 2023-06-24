@@ -1,5 +1,4 @@
 import { Menu } from "@/components/Menu";
-import { Card } from "@/components/Card";
 import { Title } from "@/components/Title";
 import { InputSearch } from "@/components/InputSearch";
 
@@ -22,12 +21,7 @@ export default async function Home() {
     <>
       <Menu>
         <Title text="Carros Disponíveis" />
-        <InputSearch />
-        <section className="max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {cars.map((car) => {
-            return <Card key={car.id} data={car} />;
-          })}
-        </section>
+        <InputSearch cars={cars} />
       </Menu>
     </>
   );
