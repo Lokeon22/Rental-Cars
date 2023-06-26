@@ -4,11 +4,15 @@ import Link from "next/link";
 import { Button } from "../Button";
 import { Cars } from "@/@types/Cars";
 
+import { formatPrice } from "@/functions/formatPrice";
+
 interface CardProps {
   data: Cars;
 }
 
 export function Card({ data }: CardProps) {
+  const { priceBRL } = formatPrice(data.daily_rate);
+
   return (
     <>
       <main className="flex justify-center flex-col px-2">
@@ -30,11 +34,8 @@ export function Card({ data }: CardProps) {
 
         <div className="flex flex-row items-center justify-between px-1 my-2">
           <h2>{data.name}</h2>
-          <p className="text-green-500">
-            <span className="text-white">Diária: </span>
-            {Intl.NumberFormat("pt-Br", { style: "currency", currency: "BRL" }).format(
-              data.daily_rate
-            )}
+          <p className="text-white">
+            Diária: <span className="text-green-500">{priceBRL}</span>
           </p>
         </div>
         <div className="grid grid-cols-2 xl:grid-cols-3 gap-1 lg:gap-0 items-center px-1">
@@ -44,7 +45,7 @@ export function Card({ data }: CardProps) {
           >
             Ver detalhes
           </Link>
-          <Button />
+          <Button id={data.id} />
         </div>
       </main>
     </>

@@ -1,7 +1,7 @@
 interface InputProps {
   text: string;
   name: string;
-  type: "text" | "password";
+  type: "text" | "password" | "date";
 }
 
 export function Input({ text, type, name }: InputProps) {

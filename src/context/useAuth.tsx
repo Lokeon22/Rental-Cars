@@ -59,7 +59,4 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   return <AuthContext.Provider value={{ user, handleLogin }}>{children}</AuthContext.Provider>;
 };
 
-export function useAuth() {
-  const context = useContext(AuthContext);
-  return context;
-}
+export const useAuth = () => useContext(AuthContext);

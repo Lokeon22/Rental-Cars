@@ -1,3 +1,6 @@
+import { staticCarById } from "@/functions/staticCar";
+import { formatPrice } from "@/functions/formatPrice";
+
 import Image from "next/image";
 import Link from "next/link";
 import { BiArrowBack } from "react-icons/bi";
@@ -6,22 +9,10 @@ import { Menu } from "@/components/Menu";
 import { Title } from "@/components/Title";
 import { Button } from "@/components/Button";
 
-import { Cars } from "@/@types/Cars";
-
-async function generateStaticParams({ params: { id } }: { params: { id: number } }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/cars`, {
-    next: { revalidate: 60 * 60 * 12 }, // 12 hours
-  });
-
-  const cars: Cars[] = await res.json();
-
-  let carDetail = cars.find((car) => car.id == id) as Cars;
-
-  return { carDetail };
-}
-
 export default async function Details({ params }: { params: { id: number } }) {
-  const { carDetail } = await generateStaticParams({ params });
+  const { carDetail } = await staticCarById({ params });
+
+  const { priceBRL } = formatPrice(carDetail.daily_rate);
 
   return (
     <>
@@ -63,14 +54,9 @@ export default async function Details({ params }: { params: { id: number } }) {
             </p>
             <p>Marca: {carDetail.brand}</p>
             <p>
-              Diária:{" "}
-              <span className="text-green-500">
-                {Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
-                  carDetail.daily_rate
-                )}
-              </span>
+              Diária: <span className="text-green-500">{priceBRL}</span>
             </p>
-            <Button />
+            <Button id={carDetail.id} />
           </div>
         </section>
       </Menu>
