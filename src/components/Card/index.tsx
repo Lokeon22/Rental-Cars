@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { Button } from "../Button";
 import { Cars } from "@/@types/Cars";
 
 interface CardProps {
@@ -37,15 +38,13 @@ export function Card({ data }: CardProps) {
           </p>
         </div>
         <div className="grid grid-cols-2 xl:grid-cols-3 gap-1 lg:gap-0 items-center px-1">
-          <Link className="w-max col-span-1 hover:brightness-75 hover:duration-200" href={"/"}>
+          <Link
+            className="w-max col-span-1 hover:brightness-75 hover:duration-200"
+            href={`/details/${data.id}`}
+          >
             Ver detalhes
           </Link>
-          <button
-            className="bg-green-600 col-span-2 w-full h-8 rounded hover:brightness-90 hover:duration-200"
-            type="button"
-          >
-            Alugar
-          </button>
+          <Button />
         </div>
       </main>
     </>
