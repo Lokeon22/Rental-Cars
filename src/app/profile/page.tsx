@@ -12,7 +12,7 @@ async function getUserOn() {
   const user_data: UserInfo = JSON.parse(user_cookie);
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/users`, {
-    next: { revalidate: 60 * 60 * 6 },
+    cache: "no-cache",
   });
   const allUsers: UserInfo[] = await res.json();
 

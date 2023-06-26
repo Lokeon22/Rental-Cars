@@ -1,4 +1,5 @@
 "use server";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/dist/client/components/headers";
 
@@ -18,6 +19,10 @@ export async function userCreate(data: FormData) {
       "Content-Type": "application/json",
     },
   });
+
+  if (res.status === 200) {
+    return redirect("/");
+  }
 
   return console.log(res);
 }

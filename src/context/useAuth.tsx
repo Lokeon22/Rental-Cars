@@ -49,10 +49,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         path: "/",
       });
 
+      setUser(user);
+
       const win: Window = window;
       win.location = "/home";
-
-      setUser(user);
     }
   }
 
