@@ -56,7 +56,7 @@ export default async function Details({ params }: { params: { id: number } }) {
             <p>
               Diária: <span className="text-green-500">{priceBRL}</span>
             </p>
-            <Button id={carDetail.id} />
+            <Button id={carDetail.id} fine_amount={carDetail.fine_amount} />
           </div>
         </section>
       </Menu>

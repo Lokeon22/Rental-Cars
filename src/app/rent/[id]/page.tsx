@@ -61,7 +61,7 @@ export default async function Rent({ params }: { params: { id: number } }) {
               className="bg-blue-600 w-max p-2 rounded mt-2 hover:brightness-90 hover:duration-200"
               type="submit"
             >
-              Verificar disponibilidade
+              Alugar agora
             </button>
           </form>
         </section>

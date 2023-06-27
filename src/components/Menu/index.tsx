@@ -19,7 +19,11 @@ export function Menu({ children }: { children: React.ReactNode }) {
             text="Alugar Veículo"
             url="/home"
           />
-          <MenuItem icon={<MdTaxiAlert className="w-5 h-5" />} text="Carros Alugados" url="/home" />
+          <MenuItem
+            icon={<MdTaxiAlert className="w-5 h-5" />}
+            text="Carros Alugados"
+            url="/mycar"
+          />
           <ButtonLogout icon={<MdOutput className="w-5 h-5" />} text="Sair" />
         </ul>
       </nav>

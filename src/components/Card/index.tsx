@@ -45,7 +45,7 @@ export function Card({ data }: CardProps) {
           >
             Ver detalhes
           </Link>
-          <Button id={data.id} />
+          <Button id={data.id} fine_amount={data.fine_amount} />
         </div>
       </main>
     </>
