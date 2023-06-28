@@ -1,33 +1,24 @@
 import { staticCarById } from "@/functions/staticCar";
-import { formatPrice } from "@/functions/formatPrice";
+import { FormatsIntl } from "@/functions/formatsIntl";
 
 import Image from "next/image";
-import Link from "next/link";
-import { BiArrowBack } from "react-icons/bi";
 
 import { Menu } from "@/components/Menu";
 import { Title } from "@/components/Title";
+import { ArrowBack } from "@/components/ArrowBack";
 import { Button } from "@/components/Button";
 
 export default async function Details({ params }: { params: { id: number } }) {
   const { carDetail } = await staticCarById({ params });
 
-  const { priceBRL } = formatPrice(carDetail.daily_rate);
+  const { priceBRL } = new FormatsIntl().priceFormat(carDetail.daily_rate);
 
   return (
     <>
       <Menu>
         <Title text="Detalhes do veículo" />
-
-        <Link
-          className="w-max flex items-center gap-2 font-medium hover:brightness-90 hover:duration-200"
-          href={"/home"}
-        >
-          <BiArrowBack className="w-5 h-5" />
-          Voltar
-        </Link>
-
-        <section className="flex flex-col lg:flex-row items-start lg:items-center gap-5 mt-5">
+        <ArrowBack />
+        <section className="flex flex-col lg:flex-row items-start lg:items-center gap-5">
           {carDetail.image.map((img) => {
             return (
               <Image

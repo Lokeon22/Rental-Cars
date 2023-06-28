@@ -3,6 +3,7 @@ import { userUpdate } from "@/app/actions";
 
 import { Menu } from "@/components/Menu";
 import { Title } from "@/components/Title";
+import { ArrowBack } from "@/components/ArrowBack";
 
 import { UserInfo } from "@/@types/User";
 
@@ -27,6 +28,7 @@ export default async function Profile() {
     <>
       <Menu>
         <Title text="Meus dados" />
+        <ArrowBack />
         {user ? (
           <>
             <h2>Bem vindo(a), {user.name}!</h2>

@@ -4,14 +4,14 @@ import Link from "next/link";
 import { Button } from "../Button";
 import { Cars } from "@/@types/Cars";
 
-import { formatPrice } from "@/functions/formatPrice";
+import { FormatsIntl } from "@/functions/formatsIntl";
 
 interface CardProps {
   data: Cars;
 }
 
 export function Card({ data }: CardProps) {
-  const { priceBRL } = formatPrice(data.daily_rate);
+  const { priceBRL } = new FormatsIntl().priceFormat(data.daily_rate);
 
   return (
     <>
