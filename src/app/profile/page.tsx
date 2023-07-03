@@ -1,4 +1,4 @@
-import { cookies } from "next/dist/client/components/headers";
+import { getUserCookies } from "@/functions/getCookies";
 import { userUpdate } from "@/app/actions";
 
 import { Menu } from "@/components/Menu";
@@ -7,29 +7,27 @@ import { ArrowBack } from "@/components/ArrowBack";
 
 import { UserInfo } from "@/@types/User";
 
-async function getUserOn() {
-  const cookieStore = cookies();
-  const { value: user_cookie }: any = cookieStore.get("rentals.user"); // obj_user
-  const user_data: UserInfo = JSON.parse(user_cookie);
-
+async function getUserOn(user_cookie: UserInfo) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/users`, {
     cache: "no-cache",
   });
   const allUsers: UserInfo[] = await res.json();
 
-  let user = allUsers.find((userOn) => userOn.id === user_data.id);
+  let user = allUsers.find((userOn) => userOn.id === user_cookie.id);
 
-  return { user };
+  return { user, allUsers };
 }
 
 export default async function Profile() {
-  const { user } = await getUserOn();
+  const { user: user_cookie } = getUserCookies();
+  const { user, allUsers } = await getUserOn(user_cookie);
+
   return (
     <>
       <Menu>
-        <Title text="Meus dados" />
+        <Title text={!!user?.is_admin ? "Usuários cadastrados" : "Meus dados"} />
         <ArrowBack />
-        {user ? (
+        {user && !user.is_admin ? (
           <>
             <h2>Bem vindo(a), {user.name}!</h2>
             <div className="flex flex-col md:flex-row gap-0.5 md:gap-3 mt-0.5 md:mt-2 text-gray-300 italic">
@@ -90,7 +88,16 @@ export default async function Profile() {
             </form>
           </>
         ) : (
-          <h2>Carregando...</h2>
+          <>
+            {allUsers.map((all) => {
+              return (
+                <div className="flex gap-2 items-center flex-wrap mb-1" key={all.id}>
+                  <h2>{all.name}: </h2>
+                  <span>{all.email}</span>
+                </div>
+              );
+            })}
+          </>
         )}
       </Menu>
     </>

@@ -2,6 +2,7 @@ import { Menu } from "@/components/Menu";
 import { Title } from "@/components/Title";
 import { InputSearch } from "@/components/InputSearch";
 
+import { getUserCookies } from "@/functions/getCookies";
 import { Cars } from "@/@types/Cars";
 
 async function getCars() {
@@ -16,12 +17,13 @@ async function getCars() {
 
 export default async function Home() {
   const { cars } = await getCars();
+  const { user } = getUserCookies();
 
   return (
     <>
       <Menu>
         <Title text="Carros Disponíveis" />
-        <InputSearch cars={cars} />
+        <InputSearch cars={cars} user={user} />
       </Menu>
     </>
   );

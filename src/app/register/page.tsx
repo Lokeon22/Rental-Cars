@@ -13,11 +13,11 @@ export default function Register() {
           action={userCreate}
           className="bg-blue-500 flex flex-col p-2 rounded gap-0.5 min-w-[300px]"
         >
-          <Input text="Nome Completo" type="text" name="name" />
-          <Input text="Usuário" type="text" name="username" />
-          <Input text="CNH" type="text" name="drive_license" />
-          <Input text="Email" type="text" name="email" />
-          <Input text="Senha" type="password" name="password" />
+          <Input text="Nome Completo" type="text" name="name" required />
+          <Input text="Usuário" type="text" name="username" required />
+          <Input text="CNH" type="text" name="drive_license" required />
+          <Input text="Email" type="text" name="email" required />
+          <Input text="Senha" type="password" name="password" required />
           <Link className="mt-0.5 w-max hover:brightness-90 hover:duration-200" href={"/"}>
             Já tenho uma conta
           </Link>

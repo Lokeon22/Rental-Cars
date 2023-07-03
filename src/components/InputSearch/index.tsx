@@ -3,8 +3,9 @@ import { useState } from "react";
 
 import { Card } from "../Card";
 import { Cars } from "@/@types/Cars";
+import { UserInfo } from "@/@types/User";
 
-export function InputSearch({ cars }: { cars: Cars[] }) {
+export function InputSearch({ cars, user }: { cars: Cars[]; user: UserInfo }) {
   const [search, setSearch] = useState<string>("");
 
   return (
@@ -26,7 +27,7 @@ export function InputSearch({ cars }: { cars: Cars[] }) {
             }
           })
           .map((car) => {
-            return <Card key={car.id} data={car} />;
+            return <Card key={car.id} data={car} is_admin={user.is_admin} />;
           })}
       </section>
     </>

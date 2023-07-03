@@ -8,9 +8,10 @@ import { FormatsIntl } from "@/functions/formatsIntl";
 
 interface CardProps {
   data: Cars;
+  is_admin: boolean;
 }
 
-export function Card({ data }: CardProps) {
+export function Card({ data, is_admin }: CardProps) {
   const { priceBRL } = new FormatsIntl().priceFormat(data.daily_rate);
 
   return (
@@ -43,7 +44,7 @@ export function Card({ data }: CardProps) {
             className="w-max col-span-1 hover:brightness-75 hover:duration-200"
             href={`/details/${data.id}`}
           >
-            Ver detalhes
+            {!!is_admin ? "Editar veículo" : "Ver detalhes"}
           </Link>
           <Button id={data.id} fine_amount={data.fine_amount} />
         </div>

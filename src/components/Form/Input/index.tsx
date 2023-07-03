@@ -1,10 +1,12 @@
-interface InputProps {
+import type { ComponentPropsWithoutRef } from "react";
+
+interface InputProps extends ComponentPropsWithoutRef<"input"> {
   text: string;
   name: string;
-  type: "text" | "password" | "date";
+  type: "text" | "password" | "date" | "number";
 }
 
-export function Input({ text, type, name }: InputProps) {
+export function Input({ text, type, name, ...rest }: InputProps) {
   return (
     <>
       <label className="font-medium" htmlFor={name}>
@@ -15,7 +17,7 @@ export function Input({ text, type, name }: InputProps) {
         type={type}
         name={name}
         id={name}
-        required
+        {...rest}
       />
     </>
   );
