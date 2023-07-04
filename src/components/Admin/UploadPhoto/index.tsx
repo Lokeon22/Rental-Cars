@@ -1,32 +1,12 @@
 "use client";
-import { useState } from "react";
-import { revalidatePath } from "next/cache";
+import { useState, useTransition } from "react";
+import { teste } from "@/functions/uploadPhotoServer";
 
 export function UploadPhoto({ car_id, token }: { car_id: number; token: string }) {
+  const [pending, startTransition] = useTransition();
   const [file, setFile] = useState<File | null>(null);
 
-  async function teste() {
-    if (file) {
-      const upload = new FormData();
-      upload.append("image_name", file, file.name);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/car/image/${car_id}`, {
-        method: "PATCH",
-        body: upload,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      if (res.status === 200) {
-        const win: Window = window;
-        return (win.location = "/home");
-      }
-
-      return console.log(res);
-    } else {
-      return;
-    }
-  }
+  const form = new FormData();
 
   return (
     <>
@@ -37,10 +17,9 @@ export function UploadPhoto({ car_id, token }: { car_id: number; token: string }
       />
       <button
         className="bg-red-600 py-2"
-        type="submit"
-        onClick={(e) => {
-          e.preventDefault();
-          teste();
+        type="button"
+        onClick={() => {
+          startTransition(() => teste({ car_id, file, form, token }));
         }}
       >
         Salva Foto
