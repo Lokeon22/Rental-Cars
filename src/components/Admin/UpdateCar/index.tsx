@@ -1,10 +1,14 @@
 import { adminCarUpdate } from "@/app/actions";
+import { getUserCookies } from "@/functions/getCookies";
+
+import { UploadPhoto } from "../UploadPhoto";
 import { Cars } from "@/@types/Cars";
 
 import { FormatsIntl } from "@/functions/formatsIntl";
 import { Input } from "@/components/Form/Input";
 
-export function UpdateCar({ car }: { car: Cars }) {
+export async function UpdateCar({ car }: { car: Cars }) {
+  const { token } = getUserCookies();
   const { priceBRL } = new FormatsIntl().priceFormat(car.daily_rate);
 
   return (
@@ -31,6 +35,8 @@ export function UpdateCar({ car }: { car: Cars }) {
           text="Categoria"
           placeholder={car.category.category_name}
         />
+
+        <UploadPhoto car_id={car.id} token={token} />
 
         <button
           className="bg-blue-600 h-8 rounded hover:brightness-90 hover:duration-200"
