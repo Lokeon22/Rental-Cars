@@ -2,6 +2,7 @@ import { FormatsIntl } from "@/functions/formatsIntl";
 
 import { staticCarById } from "@/functions/staticCar";
 import { getUserCookies } from "@/functions/getCookies";
+import { AdminAllRents } from "@/components/Admin/AllRents";
 
 import { Menu } from "@/components/Menu";
 import { Title } from "@/components/Title";
@@ -36,10 +37,10 @@ export default async function Mycar() {
   return (
     <>
       <Menu>
-        <Title text="Carro alugado" />
+        <Title text={!!user.is_admin ? "Todos alugueis" : "Carro alugado"} />
         <ArrowBack />
-        <section className="max-w-md border-2 p-1.5">
-          {rent_detail ? (
+        <section className="max-w-2xl border-2 p-1.5">
+          {rent_detail && (
             <>
               <h2 className="text-lg font-medium mb-3">Informações do aluguel</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-2">
@@ -51,9 +52,11 @@ export default async function Mycar() {
                 <label>Placa: {carDetail.license_plate}</label>
               </div>
             </>
-          ) : (
+          )}
+          {!!user.is_admin === false && !rent_detail && (
             <h2 className="text-lg font-medium">Nenhum aluguel encontrado!</h2>
           )}
+          {!!user.is_admin && <AdminAllRents token={token} user={user} />}
         </section>
       </Menu>
     </>
