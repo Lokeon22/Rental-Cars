@@ -4,13 +4,15 @@ import { getUserCookies } from "@/functions/getCookies";
 
 import { MenuItem } from "@/components/Menu/MenuItem";
 import { ButtonLogout } from "./ButtonLogout";
+import { Mobile } from "./Mobile";
 
 export function Menu({ children }: { children: React.ReactNode }) {
   const { user } = getUserCookies();
 
   return (
-    <main className="w-full h-screen grid grid-cols-3 sm:grid-cols-container gap-2 lg:gap-10">
-      <nav className="p-2 bg-blue-500 col-span-1">
+    <main className="w-full h-screen grid grid-cols-mobile sm:grid-cols-container gap-2 lg:gap-10">
+      <Mobile user={user} />
+      <nav className="p-2 bg-blue-500 hidden sm:block">
         <h2 className="text-xl sm:text-3xl font-semibold mb-4 sm:mb-6">LK Rentals</h2>
         <ul className="flex flex-col gap-4">
           <MenuItem
@@ -31,7 +33,7 @@ export function Menu({ children }: { children: React.ReactNode }) {
           <ButtonLogout icon={<MdOutput className="w-5 h-5" />} text="Sair" />
         </ul>
       </nav>
-      <section className="py-2 col-span-2 sm:col-span-1">{children}</section>
+      <section className="py-2">{children}</section>
     </main>
   );
 }

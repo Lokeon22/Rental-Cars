@@ -13,6 +13,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         container: "250px 1fr",
+        mobile: "50px 1fr",
       },
     },
   },

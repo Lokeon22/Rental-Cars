@@ -18,7 +18,7 @@ export function ButtonLogout({ icon, text }: ButtonLogoutProps) {
   }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-0.5 sm:gap-2 items-center">
+    <div className="flex flex-row gap-2 items-center">
       <>{icon}</>
       <button onClick={deleteCookie} type="button" className="text-sm sm:text-base">
         {text}
