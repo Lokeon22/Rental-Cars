@@ -1,12 +1,23 @@
 "use client";
 import { useState } from "react";
 
+import { CarsPagination } from "../CarsPagination";
+
 import { Card } from "../Card";
 import { Cars } from "@/@types/Cars";
 import { UserInfo } from "@/@types/User";
 
 export function InputSearch({ cars, user }: { cars: Cars[]; user: UserInfo }) {
   const [search, setSearch] = useState<string>("");
+
+  const [carsPerPage, setCarsPerPage] = useState<number>(2);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+
+  const pages = Math.ceil(cars.length / carsPerPage);
+
+  const startIndex = currentPage * carsPerPage;
+  const endIndex = startIndex + carsPerPage;
+  const currentCars = cars.slice(startIndex, endIndex);
 
   return (
     <>
@@ -18,7 +29,7 @@ export function InputSearch({ cars, user }: { cars: Cars[]; user: UserInfo }) {
         placeholder="Procurar"
       />
       <section className="max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {cars
+        {currentCars
           .filter((car) => {
             if (search.length === 0) {
               return car;
@@ -30,6 +41,9 @@ export function InputSearch({ cars, user }: { cars: Cars[]; user: UserInfo }) {
             return <Card key={car.id} data={car} is_admin={user.is_admin} />;
           })}
       </section>
+      <nav className="px-2 my-5 flex gap-3">
+        <CarsPagination pages={pages} setCurrentPage={setCurrentPage} />
+      </nav>
     </>
   );
 }
