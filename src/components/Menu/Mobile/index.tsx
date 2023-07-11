@@ -33,8 +33,8 @@ export function Mobile({ user }: MobileProps) {
               />
               <MenuItem
                 icon={<BsCarFrontFill className="w-5 h-5" />}
-                text={!!user.is_admin ? "Editar Veículo" : "Alugar Veículo"}
-                url="/home"
+                text={!!user.is_admin ? "Adicionar Veículo" : "Alugar Veículo"}
+                url={!!user.is_admin ? "/create" : "/home"}
               />
               <MenuItem
                 icon={<MdTaxiAlert className="w-5 h-5" />}

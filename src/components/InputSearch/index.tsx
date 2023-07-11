@@ -41,7 +41,7 @@ export function InputSearch({ cars, user }: { cars: Cars[]; user: UserInfo }) {
             return <Card key={car.id} data={car} is_admin={user.is_admin} />;
           })}
       </section>
-      <nav className="px-2 my-5 flex gap-3">
+      <nav className="px-2 my-5 flex items-center gap-3">
         <CarsPagination pages={pages} setCurrentPage={setCurrentPage} />
       </nav>
     </>
