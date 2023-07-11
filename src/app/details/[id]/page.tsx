@@ -3,8 +3,9 @@ import { getUserCookies } from "@/functions/getCookies";
 import { FormatsIntl } from "@/functions/formatsIntl";
 
 import Image from "next/image";
-import { UpdateCar } from "@/components/Admin/UpdateCar";
+import foto_indisponivel from "@/image/indisponivel.png";
 
+import { UpdateCar } from "@/components/Admin/UpdateCar";
 import { Menu } from "@/components/Menu";
 import { Title } from "@/components/Title";
 import { ArrowBack } from "@/components/ArrowBack";
@@ -25,21 +26,40 @@ export default async function Details({ params }: { params: { id: number } }) {
             <UpdateCar car={carDetail} />
           ) : (
             <>
-              {carDetail.image.map((img) => {
-                return (
+              {carDetail.image.length <= 0 ? (
+                <>
                   <Image
-                    key={img.id}
+                    key={carDetail.id}
                     className="rounded-md hover:scale-105 hover:duration-200"
                     width={380}
                     height={350}
                     alt={carDetail.name}
-                    src={`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/files/${img.image_name}`}
+                    src={foto_indisponivel}
                     priority
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvmhRPQAGTwJs6OQmwAAAAABJRU5ErkJggg=="
                   />
-                );
-              })}
+                </>
+              ) : (
+                <>
+                  {carDetail.image.map((img) => {
+                    return (
+                      <Image
+                        key={img.id}
+                        className="rounded-md hover:scale-105 hover:duration-200"
+                        width={380}
+                        height={350}
+                        alt={carDetail.name}
+                        src={`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/files/${img.image_name}`}
+                        priority
+                        placeholder="blur"
+                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvmhRPQAGTwJs6OQmwAAAAABJRU5ErkJggg=="
+                      />
+                    );
+                  })}
+                </>
+              )}
+
               <div className="flex flex-col gap-2">
                 <h2 className="uppercase">{carDetail.name}</h2>
                 <p>{carDetail.description}</p>

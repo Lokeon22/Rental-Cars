@@ -95,3 +95,33 @@ export async function adminCarUpdate(data: FormData) {
 
   return console.log(res);
 }
+
+export async function adminCreateCar(data: FormData) {
+  const cookieStore = cookies();
+  const token = cookieStore.get("rentals.token");
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_POMBAL_STORE_API}/create`, {
+    method: "POST",
+    body: JSON.stringify({
+      name: data.get("name"),
+      description: data.get("description"),
+      daily_rate: data.get("daily_rate"),
+      license_plate: data.get("license_plate"),
+      fine_amount: data.get("fine_amount"),
+      brand: data.get("brand"),
+      category_name: data.get("category_name"),
+      category_description: data.get("category_description"),
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token?.value,
+    },
+  });
+
+  if (res.status === 200) {
+    revalidatePath("/home");
+    redirect("/home");
+  }
+
+  return console.log(res);
+}
