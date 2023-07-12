@@ -7,9 +7,9 @@ export default function middleware(req: NextRequest) {
   const { pathname, href } = req.nextUrl;
 
   if (!verify && user_route.some((prefix) => pathname.startsWith(prefix))) {
-    return NextResponse.redirect("http://localhost:3000/");
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_POMBAL}`);
   }
 
-  if (verify && href === `http://localhost:3000/`)
-    return NextResponse.redirect("http://localhost:3000/home");
+  if (verify && href === `${process.env.NEXT_PUBLIC_POMBAL}/`)
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_POMBAL}/home`);
 }
