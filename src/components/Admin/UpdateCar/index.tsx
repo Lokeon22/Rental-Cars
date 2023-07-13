@@ -11,7 +11,7 @@ export async function UpdateCar({ car }: { car: Cars }) {
     <>
       <form
         action={adminCarUpdate}
-        className="max-w-4xl flex flex-col gap-3 mt-2 border-0 sm:border-2 p-2 sm:p-4"
+        className="max-w-4xl flex flex-col gap-3 mt-0 sm:mt-2 border-0 sm:border-2 p-2 sm:p-4"
       >
         <Input className="hidden" name="id" type="number" text="" defaultValue={car.id} />
         <Input name="name" type="text" text="Carro" placeholder={car.name} />
